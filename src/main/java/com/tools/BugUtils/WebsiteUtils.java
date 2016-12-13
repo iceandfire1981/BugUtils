@@ -21,6 +21,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 public class WebsiteUtils {
     private static final String BASE_ADDRESS = "http://zhishu.31.tip55.com:8089/oldOdds.aspx?t=4";
     
+    private static final boolean IS_DEBUG = true;
+    
     /**
      * 0：获取3家数据，1：获取9家数据， 2：获取13家数据
      */
@@ -88,7 +90,9 @@ public class WebsiteUtils {
             for (String id : ids) {
                 int int_id = Integer.valueOf(id);
                 OddData current_data = WebsiteUtils.getMatchData(int_id);
-                one_day_data.add(current_data);
+                if (null != current_data) {
+                    one_day_data.add(current_data);
+                }
             }
             all_math_data.put(current_date, one_day_data);
         }
@@ -768,4 +772,31 @@ public class WebsiteUtils {
         return current_data;
     }
     
+    
+    public static void writeRecordIdFile(HashMap<String, ArrayList<String>> all_match_ids) {
+        if (IS_DEBUG) {
+            try{
+                File record_file = new File("match_ids.txt");
+                record_file.createNewFile();
+                FileOutputStream out=new FileOutputStream(record_file,true);
+                StringBuffer result_buffer = new StringBuffer();
+                Iterator<Entry<String, ArrayList<String>>> map_iterator = all_match_ids.entrySet().iterator();
+                while(map_iterator.hasNext()) {
+                    Entry<String, ArrayList<String>> record_entry = map_iterator.next();
+                    result_buffer.append(record_entry.getKey() + " : ");
+                    ArrayList<String> current_day_match_ids = record_entry.getValue();
+                    for(String current_id : current_day_match_ids) {
+                        result_buffer.append(current_id+ " , ");
+                    }
+                    result_buffer.append("=======[" + String.valueOf(current_day_match_ids.size()) + " ]========");
+                    result_buffer.append("\n");
+                }
+                out.write(result_buffer.toString().getBytes("utf-8"));
+                out.close();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+        }
+        
+    }
 }
