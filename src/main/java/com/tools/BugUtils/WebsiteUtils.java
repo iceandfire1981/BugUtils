@@ -501,6 +501,20 @@ public class WebsiteUtils {
                 e.printStackTrace();
             }
         }
+        
+        DomElement element_81 = target_page.getElementById("oddstr_81");
+        if (null != element_81) {
+            System.out.println("selectedTargetByTb::info::81 click ");
+            HtmlCheckBoxInput input_81 = (HtmlCheckBoxInput) element_81.getFirstElementChild()
+                    .getFirstElementChild();
+            try {
+                input_81.click();
+                is_click = true;
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
         return is_click;
     }
     
@@ -678,6 +692,20 @@ public class WebsiteUtils {
                     .getFirstElementChild();
             try {
                 input_82.click();
+                is_click = true;
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        
+        DomElement element_81 = target_page.getElementById("oddstr_81");
+        if (null != element_81) {
+            System.out.println("selectedTargetByTb::info::81 click ");
+            HtmlCheckBoxInput input_81 = (HtmlCheckBoxInput) element_81.getFirstElementChild()
+                    .getFirstElementChild();
+            try {
+                input_81.click();
                 is_click = true;
             } catch (IOException e) {
                 // TODO Auto-generated catch block
