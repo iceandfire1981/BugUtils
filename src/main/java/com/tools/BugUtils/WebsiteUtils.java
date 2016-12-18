@@ -25,8 +25,9 @@ public class WebsiteUtils {
     
     /**
      * 0：获取3家数据，1：获取9家数据， 2：获取13家数据
-     */
+    
     private static int GET_COUNT = 0;
+     */
     
     /**
      * 第一步： 获取包括当天在内的所有比赛日期内的所有比赛ID
@@ -105,20 +106,17 @@ public class WebsiteUtils {
      * @param all_match_data
      */
     public static void writeRecordfile(HashMap<String, ArrayList<OddData>> all_match_data){
-        System.out.print("writeRecordfile::flag= " + GET_COUNT);
-        if (GET_COUNT == 0) {
-            File current_dir =  new File("");
-            current_dir = new File(current_dir.getAbsolutePath());
-            String[] all_files = current_dir.list();
-            if (null != all_files && all_files.length > 0) {
-                for (int i = 0; i < all_files.length; i++) {
-                    String current_file_name = all_files[i];
-                    System.out.println("writeRecordfile::delete::name= " + current_file_name);
-                    File current_file = new File(current_file_name);
-                    String file_name = current_file.getName();
-                    if (null != file_name && file_name.startsWith("record_file")) {
-                        current_file.delete();
-                    }
+        File current_dir =  new File("");
+        current_dir = new File(current_dir.getAbsolutePath());
+        String[] all_files = current_dir.list();
+        if (null != all_files && all_files.length > 0) {
+            for (int i = 0; i < all_files.length; i++) {
+                String current_file_name = all_files[i];
+                System.out.println("writeRecordfile::delete::name= " + current_file_name);
+                File current_file = new File(current_file_name);
+                String file_name = current_file.getName();
+                if (null != file_name && file_name.startsWith("record_file")) {
+                    current_file.delete();
                 }
             }
         }
@@ -140,20 +138,6 @@ public class WebsiteUtils {
             
             StringBuffer file_name_buffer = new StringBuffer("record_file_");
             file_name_buffer.append(current_date);
-            switch(GET_COUNT) {
-            case 0:
-                file_name_buffer.append("_THREE");
-                break;
-            case 1:
-                file_name_buffer.append("_TEN");
-                break;
-            case 2:
-                file_name_buffer.append("_ALL");
-                break;
-            default:
-                file_name_buffer.append("_ALL");
-                break;
-            }
             file_name_buffer.append(".txt");
             String record_file_name = file_name_buffer.toString();
             
@@ -162,39 +146,52 @@ public class WebsiteUtils {
                 record_file.delete();
             }
             
+            StringBuffer file_no_name_buffer = new StringBuffer("record_file_");
+            file_no_name_buffer.append(current_date);
+            file_no_name_buffer.append("_no.txt");
+            String record_no_file_name = file_no_name_buffer.toString();
+            File record_no_file = new File(record_no_file_name);
+            if (record_no_file.exists()) {
+                record_no_file.delete();
+            }
+            
             try{
             record_file.createNewFile();
-            FileOutputStream out=new FileOutputStream(record_file,true);
+            record_no_file.createNewFile();
+            
+            FileOutputStream out = new FileOutputStream(record_file,true);
+            FileOutputStream out_no = new FileOutputStream(record_no_file,true);
+            
             StringBuffer result_buffer = new StringBuffer();
+            StringBuffer result_no_buffer = new StringBuffer();
             for (OddData current_data : current_datas) {
-                result_buffer.append(current_data.getTargetAddress() + " : ");
-                result_buffer.append("x= " + current_data.getmX() + " : ");
-                result_buffer.append("y= " + current_data.getmY() + " : ");
-                result_buffer.append("z= " + current_data.getmZ() + " : ");
-                result_buffer.append("result= " + current_data.getmResult());
-                result_buffer.append(current_data.getmResult() >= 0.01 ? " (Yes) " : " (No) ");
-                result_buffer.append("\n");
+                if (current_data.getmResult() >= 0.01F) {
+                    result_buffer.append(current_data.getTargetAddress() + " : ");
+                    result_buffer.append("x= " + current_data.getmX() + " : ");
+                    result_buffer.append("y= " + current_data.getmY() + " : ");
+                    result_buffer.append("z= " + current_data.getmZ() + " : ");
+                    result_buffer.append("result= " + current_data.getmResult());
+                    result_buffer.append("\n");
+                } else {
+                    result_no_buffer.append(current_data.getTargetAddress() + " : ");
+                    result_no_buffer.append("x= " + current_data.getmX() + " : ");
+                    result_no_buffer.append("y= " + current_data.getmY() + " : ");
+                    result_no_buffer.append("z= " + current_data.getmZ() + " : ");
+                    result_no_buffer.append("result= " + current_data.getmResult());
+                    result_no_buffer.append("\n");
+                }
+                
             }
+            
             out.write(result_buffer.toString().getBytes("utf-8"));
+            out_no.write(result_no_buffer.toString().getBytes("utf-8"));
+            
             out.close();
+            out_no.close();
             } catch(Exception e) {
                 e.printStackTrace();
             } 
         }
-    }
-    
-    public static boolean changeFlag(){
-        System.out.print("Before::changeFlag::flag= " + GET_COUNT);
-        boolean is_success = false;
-        GET_COUNT = GET_COUNT + 1;
-        if (GET_COUNT < 3) {
-            is_success = true;
-        } else {
-            GET_COUNT = 0;
-            is_success = false;
-        }
-        System.out.print("After::changeFlag::flag= " + GET_COUNT);
-        return is_success;
     }
 
     /**
@@ -299,22 +296,7 @@ public class WebsiteUtils {
      * @return
      */
     private static boolean selectedTargetByTb(HtmlPage target_page) {
-        System.out.print("selectedTargetByTb::flag= " + GET_COUNT);
-        boolean is_click = false;
-        switch(GET_COUNT) {
-        case 0:
-            is_click = getDataFrom3COs(target_page);
-            break;
-        case 1:
-            is_click = getDataFrom10COs(target_page);
-            break;
-        case 2:
-            is_click = getDataFrom11Cos(target_page);
-            break;
-        default:
-             is_click = false;
-             break;
-        }
+        boolean is_click = getDataFrom10COs(target_page);
         return is_click;
     }
     

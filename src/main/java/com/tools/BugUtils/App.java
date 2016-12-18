@@ -12,13 +12,6 @@ public class App
         HashMap<String, ArrayList<OddData>> all_match_datas = WebsiteUtils.getAllMatchData(all_support_matchs);
         System.out.println("main::size= " + (null == all_match_datas ? "null" : String.valueOf(all_match_datas.size())));
         WebsiteUtils.writeRecordfile(all_match_datas);
-
-        while(WebsiteUtils.changeFlag()){
-            //all_support_matchs = WebsiteUtils.getAllMatchIds();
-            all_match_datas = WebsiteUtils.getAllMatchData(all_support_matchs);
-            System.out.println("main::size= " + (null == all_match_datas ? "null" : String.valueOf(all_match_datas.size())));
-            WebsiteUtils.writeRecordfile(all_match_datas);
-        }
         
         return;
     	
