@@ -19,7 +19,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 public class WebsiteUtils {
-    private static final String BASE_ADDRESS = "http://zhishu.31.tip55.com:8089/oldOdds.aspx?t=4";
+    private static final String BASE_ADDRESS = "http://zhishu.165.tip55.com:869/oldOdds.aspx?t=4";
 
     private static final boolean IS_DEBUG = true;
     
