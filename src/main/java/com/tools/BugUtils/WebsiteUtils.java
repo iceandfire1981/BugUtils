@@ -182,12 +182,12 @@ public class WebsiteUtils {
                 break;
             case 1:
                 file_name_buffer.append(current_date);
-                file_name_buffer.append("_6cos");
+                file_name_buffer.append("_11cos");
                 file_name_buffer.append(".txt");
                 record_file_name = file_name_buffer.toString();
 
                 file_no_name_buffer.append(current_date);
-                file_no_name_buffer.append("_6cos");
+                file_no_name_buffer.append("_11cos");
                 file_no_name_buffer.append("_no.txt");
                 record_no_file_name = file_no_name_buffer.toString();
                 break;
