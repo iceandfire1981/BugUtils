@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bug_config>
-	<get_times>3</get_times>
+    <get_times>3</get_times>
 
-	<config_list>
-		<config>
-			<comp_list>90,281,499</comp_list>
-			<file_name_pre>record_file_three</file_name_pre>
-		</config>
+    <config_list>
+        <config>
+            <comp_list>90,281,499</comp_list>
+            <file_name_pre>record_file_three</file_name_pre>
+        </config>
 
-		<config>
-			<comp_list>90,281,499,482,798,517,255,136,115,82,81</comp_list>
-			<file_name_pre>record_file_ten</file_name_pre>
-		</config>
+        <config>
+            <comp_list>90,281,499,482,798,517,255,136,115,82,81</comp_list>
+            <file_name_pre>record_file_ten</file_name_pre>
+        </config>
 
-		<config>
-			<comp_list>90,281,499,482,798,517,255,136,115,82,81,1060,772,1129</comp_list>
-			<file_name_pre>record_file_fourteen</file_name_pre>
-		</config>
+        <config>
+            <comp_list>90,281,499,482,798,517,255,136,115,82,81,1060,772,1129</comp_list>
+            <file_name_pre>record_file_fourteen</file_name_pre>
+        </config>
 
-	</config_list>
+    </config_list>
 </bug_config>

@@ -1,4 +1,4 @@
-package com.tools.BugUtils;
+package com.tools.BugUtils.data;
 
 public final class OddData {
 	private String mTargetAddress;
