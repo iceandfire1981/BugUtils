@@ -18,7 +18,19 @@ public class ConfigItem {
     }
 
     public void setCompanyList(String[] input_list) {
+        if (null == input_list || input_list.length <= 0) {
+            return;
+        }
+        if (null == mCompanyList || mCompanyList.isEmpty()) {
+            mCompanyList = new ArrayList<String>();
+        }
         
+        for(int index = 0; index<input_list.length; index ++) {
+            String current_company_id = input_list[index];
+            if (!mCompanyList.contains(current_company_id)) {
+                mCompanyList.add(current_company_id);
+            }
+        }
     }
 
     public String getOutputFileName() {

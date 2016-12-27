@@ -4,13 +4,12 @@ import java.util.ArrayList;
 
 public class ConfigFileData {
     
-    private int mRepeatTimes, mConfigCount;
+    private int mRepeatTimes;
     private ArrayList<ConfigItem> mAllConfigItems;
     
     public ConfigFileData() {
         // TODO Auto-generated constructor stub
         mRepeatTimes = 0;
-        mConfigCount = 0;
         mAllConfigItems = new ArrayList<ConfigItem>();
     }
 
@@ -20,14 +19,6 @@ public class ConfigFileData {
 
     public void setRepeatTimes(int repeat_times) {
         mRepeatTimes = repeat_times;
-    }
-
-    public int getConfigCount() {
-        return mConfigCount;
-    }
-
-    public void setmConfigCount(int config_count) {
-        mConfigCount = config_count;
     }
 
     public ArrayList<ConfigItem> getAllConfigItems() {
@@ -48,8 +39,10 @@ public class ConfigFileData {
 
     @Override
     public String toString() {
-        return "ConfigFileData [getRepeatTimes()=" + getRepeatTimes() + ", getConfigCount()=" + getConfigCount()
-                + ", getAllConfigItems()=" + getAllConfigItems() + "]";
+        return "ConfigFileData [getRepeatTimes()=" + getRepeatTimes() + ", getAllConfigItems()=" + getAllConfigItems()
+                + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+                + "]";
     }
+
     
 }
