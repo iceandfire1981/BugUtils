@@ -1,8 +1,12 @@
 package com.tools.BugUtils.config;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -14,7 +18,9 @@ import com.tools.BugUtils.data.ConfigItem;
 public final class ConfigFileUtils {
     
     public static final String BASE_ADDRESS = "http://zhishu.165.tip55.com:869/oldOdds.aspx?t=4";
+    public static final String BASE_MATCH_URI = "http://op1.win007.com/oddslist/";
 
+    private static final boolean IS_DEBUG = true;
     private static final String CONFIG_FILE_NAME = "BugUtilConfig.xml";
     private static final String TAG_CONFIG_GET_TIMES = "get_times";
     private static final String TAG_CONFIG_LIST = "config_list";
@@ -76,4 +82,35 @@ public final class ConfigFileUtils {
         return all_config_item_datas;
     }
     
+    public static void writeMatchIdFile(HashMap<String, ArrayList<String>> all_match_ids) {
+        if (IS_DEBUG) {
+            try {
+                File record_file = new File("match_ids.txt");
+                record_file.createNewFile();
+                FileOutputStream out = new FileOutputStream(record_file, true);
+                StringBuffer result_buffer = new StringBuffer();
+                Iterator<Entry<String, ArrayList<String>>> map_iterator = all_match_ids.entrySet().iterator();
+                if (null == all_match_ids || all_match_ids.isEmpty()) {
+                    result_buffer.append("No matchs here!");
+                } else {
+                    while (map_iterator.hasNext()) {
+                        Entry<String, ArrayList<String>> record_entry = map_iterator.next();
+                        result_buffer.append(record_entry.getKey() + " : ");
+                        ArrayList<String> current_day_match_ids = record_entry.getValue();
+                        for (String current_id : current_day_match_ids) {
+                            result_buffer.append(current_id + " , ");
+                        }
+                        result_buffer.append("=======[" + String.valueOf(current_day_match_ids.size()) + " ]========");
+                        result_buffer.append("\n");
+                    }
+                    out.write(result_buffer.toString().getBytes("utf-8"));
+                    out.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+        }
+
+    }
 }
